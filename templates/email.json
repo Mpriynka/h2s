@@ -1,0 +1,32 @@
+{
+    "id": "email",
+    "name": "Professional Email",
+    "description": "Professional email for communication with parents, colleagues or authorities",
+    "prompt_template": "\n        Write a professional email with the following details:\n        - From: {sender_name}, {sender_designation}, {sender_school}\n        - To: {recipient_name}\n        - Subject: {subject}\n        \n        The email should be about: {email_content}\n        \n        The tone should be: {formality}\n        The language should be: {language}\n        \n        Include all professional email components (subject line, greeting, body, closing, signature).\n        ",
+    "required_fields": [
+        {
+            "name": "sender_name",
+            "description": "Name of the sender"
+        },
+        {
+            "name": "sender_designation",
+            "description": "Designation of the sender"
+        },
+        {
+            "name": "sender_school",
+            "description": "School name of the sender"
+        },
+        {
+            "name": "recipient_name",
+            "description": "Name of the recipient(s)"
+        },
+        {
+            "name": "subject",
+            "description": "Subject of the email"
+        },
+        {
+            "name": "email_content",
+            "description": "Main points to include in the email"
+        }
+    ]
+}

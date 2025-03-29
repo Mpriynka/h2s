@@ -1,0 +1,44 @@
+{
+    "id": "official_letter",
+    "name": "Official Letter",
+    "description": "Formal letter for official communication with authorities",
+    "prompt_template": "\n        Write a formal letter with the following details:\n        - From: {sender_name}, {sender_designation}, {sender_school}\n        - To: {recipient_name}, {recipient_designation}, {recipient_organization}\n        - Subject: {subject}\n        - Date: {date}\n        \n        The letter should be about: {letter_content}\n        \n        The tone should be: {formality}\n        The language should be: {language}\n        \n        Include all formal letter components (letterhead, subject, salutation, body, closing, signature).\n        ",
+    "required_fields": [
+        {
+            "name": "sender_name",
+            "description": "Name of the sender"
+        },
+        {
+            "name": "sender_designation",
+            "description": "Designation of the sender"
+        },
+        {
+            "name": "sender_school",
+            "description": "School name of the sender"
+        },
+        {
+            "name": "recipient_name",
+            "description": "Name of the recipient"
+        },
+        {
+            "name": "recipient_designation",
+            "description": "Designation of the recipient"
+        },
+        {
+            "name": "recipient_organization",
+            "description": "Organization of the recipient"
+        },
+        {
+            "name": "subject",
+            "description": "Subject of the letter"
+        },
+        {
+            "name": "date",
+            "description": "Date of the letter"
+        },
+        {
+            "name": "letter_content",
+            "description": "Main points to include in the letter"
+        }
+    ]
+}

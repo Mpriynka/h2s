@@ -1,0 +1,40 @@
+{
+    "id": "circular",
+    "name": "School Circular",
+    "description": "Announcements and notifications for school community",
+    "prompt_template": "\n        Create a school circular with the following details:\n        - School Name: {school_name}\n        - Circular Number: {circular_number}\n        - Date: {date}\n        - Subject: {subject}\n        \n        The circular should announce: {announcement}\n        \n        Additional details to include: {additional_details}\n        \n        The tone should be: {formality}\n        The language should be: {language}\n        \n        Format it as a proper school circular with header, reference number, body, and signature from {authority_name}, {authority_designation}.\n        ",
+    "required_fields": [
+        {
+            "name": "school_name",
+            "description": "Name of the school"
+        },
+        {
+            "name": "circular_number",
+            "description": "Reference number of the circular"
+        },
+        {
+            "name": "date",
+            "description": "Date of issue"
+        },
+        {
+            "name": "subject",
+            "description": "Subject of the circular"
+        },
+        {
+            "name": "announcement",
+            "description": "Main announcement content"
+        },
+        {
+            "name": "additional_details",
+            "description": "Any additional information"
+        },
+        {
+            "name": "authority_name",
+            "description": "Name of the issuing authority"
+        },
+        {
+            "name": "authority_designation",
+            "description": "Designation of the issuing authority"
+        }
+    ]
+}
