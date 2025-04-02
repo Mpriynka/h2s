@@ -1,3 +1,4 @@
+#points/scheduler.py
 from langchain_community.llms import Ollama
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.output_parsers import JsonOutputParser
@@ -139,3 +140,49 @@ class ScheduleGenerator:
             
         except Exception as e:
             return {"status": "error", "message": f"Refinement failed: {str(e)}"}
+        
+
+
+    def generate_with_context(self, document_text: str, text_prompt: str, 
+                            voice_transcript: str, schedule_type: str, 
+                            preferences: dict) -> Dict[str, Any]:
+        """
+        Generate schedule combining all input sources
+        """
+        combined_input = f"""
+        REFERENCE DOCUMENT CONTENT:
+        {document_text}
+        
+        TEXT INSTRUCTIONS:
+        {text_prompt}
+        
+        VOICE NOTES:
+        {voice_transcript}
+        """
+        
+        prompt = ChatPromptTemplate.from_template("""
+        Create a {schedule_type} using:
+        1. This reference document: ||{document_text}||
+        2. These text instructions: ||{text_prompt}||
+        3. These voice notes: ||{voice_transcript}||
+        
+        Preferences: {preferences}
+        
+        Follow these rules:
+        - Preserve useful structure from reference doc
+        - Implement all text/voice instructions
+        - Maintain consistent formatting
+        - Return valid JSON only
+        
+        {format_instructions}
+        """)
+        
+        chain = prompt | self.llm | self.parser
+        return chain.invoke({
+            "document_text": document_text,
+            "text_prompt": text_prompt,
+            "voice_transcript": voice_transcript,
+            "preferences": preferences,
+            "schedule_type": schedule_type,
+            "format_instructions": self.parser.get_format_instructions()
+        })

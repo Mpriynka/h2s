@@ -1,8 +1,13 @@
+#logic/utils.py
 import pdfplumber
 import pandas as pd
 from io import BytesIO
 import speech_recognition as sr
 from typing import Union
+import soundfile as sf
+import io
+import numpy as np
+from typing import Optional
 
 def extract_text_from_pdf(file_bytes: bytes) -> str:
     """Extract text content from PDF file"""
@@ -39,3 +44,25 @@ def format_schedule_as_table(schedule_data: dict) -> str:
         df = pd.DataFrame.from_dict(schedule_data, orient='index')
     
     return df.to_markdown()
+
+def process_audio_buffer(audio_buffer: bytes) -> Optional[bytes]:
+    """Convert audio buffer to WAV format"""
+    try:
+        # Convert bytes to numpy array
+        audio_array = np.frombuffer(audio_buffer, dtype=np.int16)
+        
+        # Convert to WAV format in memory
+        with io.BytesIO() as wav_buffer:
+            sf.write(wav_buffer, audio_array, samplerate=16000, format='WAV')
+            return wav_buffer.getvalue()
+    except Exception as e:
+        print(f"Audio processing error: {e}")
+        return None
+
+def process_audio(audio_bytes: bytes) -> str:
+    """Convert processed audio bytes to text"""
+    try:
+        return speech_to_text(audio_bytes)
+    except Exception as e:
+        print(f"Audio processing error: {e}")
+        return ""
