@@ -7,7 +7,7 @@ def create_default_templates():
     templates_dir = "templates"
     if not os.path.exists(templates_dir):
         os.makedirs(templates_dir)
-    
+
     # Official Letter Template
     official_letter = {
         "id": "official_letter",
@@ -39,7 +39,7 @@ def create_default_templates():
             {"name": "letter_content", "description": "Main points to include in the letter"}
         ]
     }
-    
+
     # Email Template
     email_template = {
         "id": "email",
@@ -67,7 +67,7 @@ def create_default_templates():
             {"name": "email_content", "description": "Main points to include in the email"}
         ]
     }
-    
+
     # Circular Template
     circular = {
         "id": "circular",
@@ -100,7 +100,7 @@ def create_default_templates():
             {"name": "authority_designation", "description": "Designation of the issuing authority"}
         ]
     }
-    
+
     # Save default templates
     for template in [official_letter, email_template, circular]:
         template_path = os.path.join(templates_dir, f"{template['id']}.json")
@@ -112,16 +112,16 @@ def get_all_templates():
     """Get all available templates"""
     # Create default templates if none exist
     create_default_templates()
-    
+
     templates_dir = "templates"
     templates = {}
-    
+
     for filename in os.listdir(templates_dir):
         if filename.endswith(".json"):
             with open(os.path.join(templates_dir, filename), 'r', encoding='utf-8') as f:
                 template_data = json.load(f)
                 templates[template_data["id"]] = template_data
-    
+
     return templates
 
 def load_template_by_id(template_id):

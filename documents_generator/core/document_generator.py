@@ -18,24 +18,24 @@ def generate_document_content(template, language, formality, details):
     """Generate document content based on template and details"""
     # Initialize LLM
     llm = get_llm()
-    
+
     # Prepare the prompt template
     prompt_template = PromptTemplate(
         template=template["prompt_template"],
         input_variables=["formality", "language"] + [field["name"] for field in template["required_fields"]]
     )
-    
+
     # Prepare inputs for the prompt
     prompt_inputs = {
         "formality": formality,
         "language": language,
         **details
     }
-    
+
     # Create and run the chain
     chain = LLMChain(llm=llm, prompt=prompt_template)
-    
+
     # Generate content
     result = chain.run(**prompt_inputs)
-    
+
     return result

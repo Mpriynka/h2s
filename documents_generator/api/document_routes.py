@@ -34,7 +34,7 @@ async def get_templates():
     """Get all available document templates"""
     templates = get_all_templates()
     template_list = []
-    
+
     for template_id, template_data in templates.items():
         template_list.append(TemplateInfo(
             id=template_id,
@@ -42,7 +42,7 @@ async def get_templates():
             description=template_data["description"],
             required_fields=template_data["required_fields"]
         ))
-    
+
     return template_list
 
 @router.post("/generate", response_model=DocumentResponse)
@@ -52,7 +52,7 @@ async def generate_document(request: DocumentRequest):
     template = load_template_by_id(request.template_type)
     if not template:
         raise HTTPException(status_code=404, detail=f"Template '{request.template_type}' not found")
-    
+
     # Validate required fields
     for field in template["required_fields"]:
         field_name = field["name"]
@@ -61,7 +61,7 @@ async def generate_document(request: DocumentRequest):
                 status_code=400, 
                 detail=f"Missing required field: {field_name} - {field.get('description', '')}"
             )
-    
+
     # Generate the document content
     content = generate_document_content(
         template=template,
@@ -69,7 +69,7 @@ async def generate_document(request: DocumentRequest):
         formality=request.formality,
         details=request.details
     )
-    
+
     # Build response
     response = DocumentResponse(
         content=content,
@@ -81,7 +81,7 @@ async def generate_document(request: DocumentRequest):
             "user_inputs": request.details
         }
     )
-    
+
     return response
 
 @router.post("/upload-template")
@@ -92,20 +92,20 @@ async def upload_template(template_file: UploadFile = File(...)):
         templates_dir = "templates"
         if not os.path.exists(templates_dir):
             os.makedirs(templates_dir)
-            
+
         content = await template_file.read()
         template_data = json.loads(content)
-        
+
         # Validate template structure
         required_keys = ["id", "name", "description", "prompt_template", "required_fields"]
         for key in required_keys:
             if key not in template_data:
                 raise HTTPException(status_code=400, detail=f"Template missing required key: {key}")
-        
+
         # Save template
         with open(os.path.join(templates_dir, f"{template_data['id']}.json"), 'w', encoding='utf-8') as f:
             json.dump(template_data, f, indent=4)
-        
+
         return {"message": f"Template '{template_data['name']}' uploaded successfully"}
     except json.JSONDecodeError:
         raise HTTPException(status_code=400, detail="Invalid JSON format")
