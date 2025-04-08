@@ -17,11 +17,11 @@ app.add_middleware(
 )
 
 # Include routers
-app.include_router(document_router, prefix="/api/documents", tags=["documents"])
+app.include_router(document_router, prefix="/api/document_routes", tags=["documents"])
 
 @app.get("/")
 async def root():
     return {"message": "Welcome to Teacher Document Generation API for Government of India Teachers"}
 
 if __name__ == "__main__":
-    uvicorn.run("app:app", host="0.0.0.0", port=8000, reload=True)
+    uvicorn.run("app:app", host="0.0.0.0", port=8001, reload=True)

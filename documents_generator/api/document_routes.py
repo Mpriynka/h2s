@@ -11,10 +11,10 @@ router = APIRouter()
 
 # Models for request/response
 class DocumentRequest(BaseModel):
-    template_type: str  # e.g., "official_letter", "email", "circular"
-    language: str = "English"  # Default language
-    formality: str = "formal"  # "formal", "semi-formal", "casual"
-    details: Dict[str, Any]  # Template-specific details
+    template_type: str
+    language: str = "English"
+    formality: str = "formal"
+    details: Dict[str, Any]
 
 class DocumentResponse(BaseModel):
     content: str

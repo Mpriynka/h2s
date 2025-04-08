@@ -5,7 +5,7 @@ import json
 import os
 
 # Define API endpoint (adjust if needed)
-API_BASE_URL = "http://localhost:8000/api/documents"
+API_BASE_URL = "http://localhost:8001/api/documents"
 
 def main():
     st.title("Document Generator for Government of India Teachers")
