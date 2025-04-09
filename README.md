@@ -1,19 +1,5 @@
 # h2s
 
-## Scheduling
-
-```
-cd scheduling
-```
-Terminal 1:
-```
-uvicorn backend.api:app --reload --host 0.0.0.0 --port 8000
-```
-Terminal 2:
-```
-streamlit run main.py
-```
-
 
 ## Quiz Generator
 Terminal 1:
@@ -44,4 +30,33 @@ uvicorn app:app --reload --host 0.0.0.0 --port 8000
 Terminal 2:
 ```
 streamlit run streamlit_app.py
+```
+
+
+## Scheduling
+
+```
+cd scheduling
+```
+Terminal 1:
+```
+uvicorn backend.api:app --reload --host 0.0.0.0 --port 8000
+```
+Terminal 2:
+```
+streamlit run main.py
+```
+
+
+## Uploading to Vector DB
+```
+cd rag_backend
+```
+Terminal 1:
+```
+uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
+```
+Terminal 2:
+```
+streamlit run ui/app.py
 ```
