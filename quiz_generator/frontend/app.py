@@ -95,24 +95,6 @@ def main():
         evaluation = st.slider("Evaluating (%)", 0, 100, 3)
         creation = 100 - knowledge - understanding - application - analysis - evaluation
         st.write(f"Creating: {creation}%")
-        
-        # PDF Upload
-        st.subheader("Additional Context")
-        pdf_file = st.file_uploader("Upload Textbook PDF (Optional)", type=["pdf"])
-        if pdf_file:
-            response = requests.post(
-                f"{BACKEND_URL}/process-pdf",
-                files={"file": pdf_file}
-            )
-            if response.status_code == 200:
-                st.session_state.context = response.json()["text"]
-                st.success("PDF processed successfully!")
-            else:
-                st.error("Failed to process PDF")
-        
-        custom_context = st.text_area("Or enter custom context")
-        if custom_context:
-            st.session_state.context = custom_context
     
     # Generate button
     if st.button("Generate Test Paper", type="primary"):
@@ -175,10 +157,7 @@ def main():
             
             if q["type"] == "fill_blanks":
                 st.write("__________________________")
-            
-            with st.expander("View Answer"):
-                st.success(f"Answer: {q['answer']}")
-                st.caption(f"Difficulty: {q['difficulty'].title()} | Bloom's Level: {q['bloom_level'].title()}")
+            st.caption(f"Difficulty: {q['difficulty'].title()} | Bloom's Level: {q['bloom_level'].title()}")
             
             st.write("---")
         
@@ -195,7 +174,7 @@ def main():
             st.download_button(
                 label="Download as Text",
                 data="\n".join(
-                    f"Q{i+1}. {q['text']}\nAnswer: {q['answer']}\n" 
+                    f"Q{i+1}. {q['text']}\n\n" 
                     for i, q in enumerate(st.session_state.questions)
                 ),
                 file_name=f"{st.session_state.subject}_{topic}_test.txt",

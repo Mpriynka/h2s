@@ -1,10 +1,11 @@
+# api/main.py
 from fastapi import FastAPI, UploadFile, File, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
+import requests
 from typing import List, Optional
 import os
 from .question_generator import QuestionGenerator
-from .pdf_processor import PDFProcessor
 from .syllabus_mapping import SyllabusMapper
 
 app = FastAPI()
@@ -19,8 +20,8 @@ app.add_middleware(
 
 # Initialize components
 question_gen = QuestionGenerator()
-pdf_processor = PDFProcessor()
 syllabus_mapper = SyllabusMapper()
+
 
 class TopicRequest(BaseModel):
     subject: str
@@ -44,14 +45,6 @@ async def suggest_topics(request: TopicRequest):
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
-@app.post("/process-pdf")
-async def process_pdf(file: UploadFile = File(...)):
-    try:
-        contents = await file.read()
-        text = pdf_processor.extract_text(contents)
-        return {"text": text}
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
 
 @app.post("/generate-questions")
 async def generate_questions(request: QuestionRequest):
