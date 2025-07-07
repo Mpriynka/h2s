@@ -1,7 +1,24 @@
-# h2s
+# 🧠 RAG-Powered Teaching Assistant
+
+This system is designed to assist educators using a Retrieval-Augmented Generation (RAG) pipeline. Teachers can upload books and documents which are stored in a vector database. These resources can then be used to generate quizzes, schedule sessions, and provide document-based assistance.
+
+---
+
+## 🔧 Features Overview
+
+| Feature              | Description                                                                 |
+|----------------------|-----------------------------------------------------------------------------|
+| **Document Upload**   | Teachers upload materials which are parsed and saved to a vector database. |
+| **Quiz Generator**    | Generates intelligent quizzes based on uploaded content.                   |
+| **Document Generator**| Allows generating summaries or notes from uploaded files.                  |
+| **Scheduling**        | Manages teacher-student sessions and activity timelines.                   |
+
+---
+
+## 🚀 Project Setup & Commands
 
 
-## Quiz Generator
+### Quiz Generator
 Terminal 1:
 ```
 cd projects/rag_backend
@@ -18,7 +35,7 @@ cd projects/quiz_generator
 streamlit run frontend/app.py
 ```
 
-## Documents Generator
+### Documents Generator
 
 ```
 cd documents_generator
@@ -33,7 +50,7 @@ streamlit run streamlit_app.py
 ```
 
 
-## Scheduling
+### Scheduling
 
 ```
 cd scheduling
@@ -48,7 +65,7 @@ streamlit run main.py
 ```
 
 
-## Uploading to Vector DB
+### Uploading to Vector DB
 ```
 cd rag_backend
 ```
